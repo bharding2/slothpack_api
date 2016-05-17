@@ -1,8 +1,3 @@
-## congratulations, you made it to this branch!
+## slothpack_api
 
-#### this is the rest_api and angular client rolled into one package.
-* run `node server.js` to launch the api
-* `gulp build:dev` to build the angular client
-* run `node build_server.js` to serve the angular client to the browser via localhost
-* for testing you will need Karma and Protractor installed globally
-* to run the full battery of tests, just run `gulp` to get the default task
+#### This is the server component of the two resouce slothpack client. The server will need a mongo instance running to connect to, but after that `node server.js` and go have fun with the slothpack client
