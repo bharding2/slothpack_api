@@ -1,0 +1,5 @@
+**/*node_modules
+/db
+/build
+/test/bundle.js
+/test/bundle.js.map
