@@ -1,4 +1,4 @@
-## congratulations, you made it to this branch!
+## slothpack_api
 
 #### this is the rest_api and angular client rolled into one package.
 * run `node server.js` to launch the api
