@@ -1,5 +1,5 @@
 var handleErr = require('../../lib').handleErr;
-var baseUrl = require('../../../config').baseUrl;
+var baseUrl = require('../../config').baseUrl;
 
 module.exports = function(app) {
   app.controller('BearsController', ['$http', function($http) {

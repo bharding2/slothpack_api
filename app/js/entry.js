@@ -2,6 +2,8 @@ const angular = require('angular');
 const slothbearApp = angular.module('slothbearApp', []);
 
 require('./bears')(slothbearApp);
+require('./sloths')(slothbearApp);
+require('./slothbears')(slothbearApp);
 // const port = process.env.PORT || 5555;
 // console.log(port);
 // const baseUrl = 'http://localhost:' + port;
