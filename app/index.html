@@ -7,7 +7,7 @@
   <body data-ng-app="slothbearApp">
     <main>
       <section data-ng-controller="BearsController as bearsctrl" data-ng-init="bearsctrl.getAll()">
-        <form data-ng-submit="bearsctrl.createBear()">
+        <!-- <form data-ng-submit="bearsctrl.createBear()">
           <label>Name
             <input type="text" name="name" data-ng-model="bearsctrl.newBear.name">
           </label>
@@ -25,10 +25,15 @@
           </label>
 
           <button id="createbear" type="submit">Create Bear</button>
-        </form>
+        </form> -->
+        <bear-form
+          data-button-text="Create Bear"
+          data-action="create"
+          data-bear="bearsctrl.newBear">
+        </bear-form>
 
         <ul id="bearslist">
-          <li data-ng-repeat="bear in bearsctrl.bears">
+          <!-- <li data-ng-repeat="bear in bearsctrl.bears">
             <span data-ng-if="!bear.editing">{{ bear.name }} (gender: {{ bear.gender }}) weighs {{ bear.weight }} lbs and has a strength of {{ bear.strength }}</span>
             <form data-ng-if="bear.editing" data-ng-submit="bearsctrl.updateBear(bear)">
               <label>Name
@@ -53,7 +58,36 @@
 
             <button data-ng-if="!bear.editing" data-ng-click="bearsctrl.backup(bear); bear.editing = true">Edit</button>
             <button data-ng-click="bearsctrl.removeBear(bear)">Delete Bear</button>
-          </li>
+          </li> -->
+          <bear-list-item data-ng-repeat="bear in bearsctrl.bears" data-bear="bear">
+            <bear-form
+              data-ng-if="bear.editing"
+              data-button-text="Update Bear"
+              data-action="update"
+              data-bear="bear">
+              <button data-ng-click="bearsctrl.restoreBackup(bear); bear.editing = false">Cancel</button>
+            </bear-form>
+            <!-- <form data-ng-if="bear.editing" data-ng-submit="bearsctrl.updateBear(bear)">
+              <label>Name
+                <input type="text" name="name" data-ng-model="bear.name">
+              </label>
+
+              <label>Weight
+                <input type="text" name="weight" data-ng-model="bear.weight" placeholder="500">
+              </label>
+
+              <label>Strength
+                <input type="text" name="strength" data-ng-model="bear.strength" placeholder="10">
+              </label>
+
+              <label>Gender
+                <input type="text" name="gender" data-ng-model="bear.gender" placeholder="m">
+              </label>
+
+              <button type="submit" data-ng-click="bearsctrl.deleteBackup(bear)">Update Bear</button>
+              <button data-ng-click="bearsctrl.restoreBackup(bear); bear.editing = false">Cancel</button>
+            </form> -->
+          </bear-list-item>
         </ul>
       </section>
 

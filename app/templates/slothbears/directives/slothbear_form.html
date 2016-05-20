@@ -1,0 +1,20 @@
+<form data-ng-submit="save(slothbear)">
+  <label>Name
+    <input type="text" name="name" data-ng-model="slothbear.name">
+  </label>
+
+  <label>Weight
+    <input type="text" name="weight" data-ng-model="slothbear.weight" placeholder="500">
+  </label>
+
+  <label>Strength
+    <input type="text" name="strength" data-ng-model="slothbear.strength" placeholder="10">
+  </label>
+
+  <label>Gender
+    <input type="text" name="gender" data-ng-model="slothbear.gender" placeholder="m">
+  </label>
+
+  <button type="submit">{{ buttonText }}</button>
+  <ng-transclude></ng-transclude>
+</form>
