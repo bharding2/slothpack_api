@@ -10,7 +10,7 @@
         data-ng-controller="BearsController as bearsctrl" data-ng-init="bearsctrl.getAll()">
           <bear-form
             data-button-text="Create Bear"
-            data-action="create"
+            data-savemethod="create"
             data-bear="bearsctrl.newBear">
           </bear-form>
           <ul id="bearslist">
@@ -18,7 +18,7 @@
               <bear-form
               data-ng-if="bear.editing"
               data-button-text="Update Bear"
-              data-action="update"
+              data-savemethod="update"
               data-bear="bear">
               <button data-ng-click="bearsctrl.restoreBackup(bear); bear.editing = false">Cancel</button>
             </bear-form>
@@ -29,7 +29,7 @@
         data-ng-controller="SlothsController as slothsctrl" data-ng-init="slothsctrl.getAll()">
           <sloth-form
             data-button-text="Create Sloth"
-            data-action="create"
+            data-savemethod="create"
             data-sloth="slothsctrl.newSloth">
           </sloth-form>
           <ul id="slothslist">
@@ -37,7 +37,7 @@
               <sloth-form
               data-ng-if="sloth.editing"
               data-button-text="Update Sloth"
-              data-action="update"
+              data-savemethod="update"
               data-sloth="sloth">
               <button data-ng-click="slothsctrl.restoreBackup(sloth); sloth.editing = false">Cancel</button>
             </sloth-form>
@@ -52,7 +52,7 @@
             <slothbear-form
             data-ng-if="slothbear.editing"
             data-button-text="Update Slothbear"
-            data-action="update"
+            data-savemethod="update"
             data-slothbear="slothbear">
             <button data-ng-click="slothbearsctrl.restoreBackup(slothbear); slothbear.editing = false">Cancel</button>
           </slothbear-form>

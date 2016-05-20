@@ -9,14 +9,14 @@ module.exports = function(app) {
       scope: {
         sloth: '=',
         buttonText: '@',
-        action: '@'
+        savemethod: '@'
       },
       link: function(scope, element, attrs, controller) {
-        var actions = {
+        var methods = {
           update: controller.updateSloth,
           create: controller.createSloth
         };
-        scope.save = actions[scope.action];
+        scope.save = methods[scope.savemethod];
       }
     };
   });
