@@ -2,6 +2,6 @@
   <ng-transclude></ng-transclude>
   <span data-ng-if="!bear.editing">{{ bear.name }} (gender: {{ bear.gender }}) weighs {{ bear.weight }} lbs and has a strength of {{ bear.strength }}</span>
 
-  <button data-ng-if="!bear.editing" data-ng-click="bearsctrl.backup(bear); bear.editing = true">Edit</button>
+  <button data-ng-if="!bear.editing" data-ng-click="backup(bear); bear.editing = true">Edit</button>
   <button data-ng-click="removeBear(bear)">Delete Bear</button>
 </li>

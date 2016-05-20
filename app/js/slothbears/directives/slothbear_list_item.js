@@ -11,6 +11,7 @@ module.exports = function(app) {
       },
       link: function(scope, element, attrs, controller) {
         scope.removeSlothbear = controller.removeSlothbear;
+        scope.backup = controller.backup;
       }
     };
   });
