@@ -1,0 +1,13 @@
+section {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+
+section > form, ul, ol {
+  flex: 1 100%;
+}
+
+ul, ol, h3{
+  flex: 1 40%;
+}
