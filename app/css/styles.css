@@ -4,7 +4,7 @@ section {
   justify-content: space-between;
 }
 
-section > form, ul, ol {
+section > form, ul, ol, h4 {
   flex: 1 100%;
 }
 

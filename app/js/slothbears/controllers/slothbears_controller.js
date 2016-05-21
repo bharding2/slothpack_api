@@ -4,6 +4,7 @@ var baseUrl = require('../../config').baseUrl;
 module.exports = function(app) {
   app.controller('SlothbearsController', ['$http', function($http) {
     this.slothbears = [];
+    this.topTen = [];
 
     this.backup = (slothbear) => {
       slothbear.backup = angular.copy(slothbear);
@@ -21,6 +22,11 @@ module.exports = function(app) {
       $http.get(baseUrl + '/api/slothbears')
         .then((response) => {
           this.slothbears = response.data;
+          this.topTen = this.slothbears.slice()
+            .sort((a, b) => {
+              return b.offspring.length - a.offspring.length;
+            });
+          this.topTen.length = 10;
         }, handleErr.bind(this));
     };
 

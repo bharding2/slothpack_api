@@ -4,6 +4,7 @@ var baseUrl = require('../../config').baseUrl;
 module.exports = function(app) {
   app.controller('SlothsController', ['$http', function($http) {
     this.sloths = [];
+    this.topTen = [];
 
     this.backup = (sloth) => {
       sloth.backup = angular.copy(sloth);
@@ -21,6 +22,11 @@ module.exports = function(app) {
       $http.get(baseUrl + '/api/sloths')
         .then((response) => {
           this.sloths = response.data;
+          this.topTen = this.sloths.slice()
+            .sort((a, b) => {
+              return b.offspring.length - a.offspring.length;
+            });
+          this.topTen.length = 10;
         }, handleErr.bind(this));
     };
 

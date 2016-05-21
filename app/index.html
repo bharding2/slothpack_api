@@ -35,10 +35,13 @@
 
       <section data-ng-controller="SlothsController as slothsctrl"
         data-ng-init="slothsctrl.getAll()">
+        <h3>Create a Sloth</h3>
         <sloth-form data-button-text="Create Sloth"
           data-savemethod="create"
           data-sloth="slothsctrl.newSloth">
         </sloth-form>
+        <h3>Current Sloths</h3>
+        <h3>Top Ten Sloths</h3>
         <ul id="slothslist">
           <sloth-list-item data-ng-repeat="sloth in slothsctrl.sloths"
             data-sloth="sloth">
@@ -50,11 +53,18 @@
             </sloth-form>
           </sloth-list-item>
         </ul>
+        <ol id="slothstopten">
+          <li data-ng-repeat="sloth in slothsctrl.topTen">
+            {{ sloth.name }} : {{ sloth.offspring.length }} children
+          </li>
+        </ol>
       </section>
 
       <section data-ng-controller="SlothbearsController as slothbearsctrl"
         data-ng-init="slothbearsctrl.getAll()">
+        <h4>Make a Slothbear</h4>
         <button data-ng-click="slothbearsctrl.createSlothbear()">Make a Slothbear</button>
+        <h4>Current Slothbears</h4>
         <ul id="slothbearslist">
           <slothbear-list-item data-ng-repeat="slothbear in slothbearsctrl.slothbears"
             data-slothbear="slothbear">

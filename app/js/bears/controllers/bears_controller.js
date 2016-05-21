@@ -27,7 +27,6 @@ module.exports = function(app) {
               return b.offspring.length - a.offspring.length;
             });
           this.topTen.length = 10;
-          console.log(this.topTen);
         }, handleErr.bind(this));
     };
 
