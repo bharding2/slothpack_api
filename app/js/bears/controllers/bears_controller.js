@@ -26,7 +26,7 @@ module.exports = function(app) {
             .sort((a, b) => {
               return b.offspring.length - a.offspring.length;
             });
-          this.topTen.length = 10;
+          if (this.bears.length > 10) this.topTen.length = 10;
         }, handleErr.bind(this));
     };
 
@@ -35,6 +35,11 @@ module.exports = function(app) {
         .then((response) => {
           this.bears.push(response.data);
           this.newBear = null;
+          this.topTen = this.bears.slice()
+            .sort((a, b) => {
+              return b.offspring.length - a.offspring.length;
+            });
+          if (this.topTen.length > 10) this.topTen.length = 10;
         }, handleErr.bind(this));
     };
 
@@ -49,6 +54,11 @@ module.exports = function(app) {
       $http.delete(baseUrl + '/api/bears/' + bear._id)
         .then(() => {
           this.bears.splice(this.bears.indexOf(bear), 1);
+          this.topTen = this.bears.slice()
+            .sort((a, b) => {
+              return b.offspring.length - a.offspring.length;
+            });
+          if (this.bears.length > 10) this.topTen.length = 10;
         }, handleErr.bind(this));
     };
   }]);

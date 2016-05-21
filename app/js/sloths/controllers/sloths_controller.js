@@ -26,7 +26,7 @@ module.exports = function(app) {
             .sort((a, b) => {
               return b.offspring.length - a.offspring.length;
             });
-          this.topTen.length = 10;
+          if (this.topTen.length > 10) this.topTen.length = 10;
         }, handleErr.bind(this));
     };
 
@@ -35,6 +35,11 @@ module.exports = function(app) {
         .then((response) => {
           this.sloths.push(response.data);
           this.newSloth = null;
+          this.topTen = this.sloths.slice()
+            .sort((a, b) => {
+              return b.offspring.length - a.offspring.length;
+            });
+          if (this.topTen.length > 10) this.topTen.length = 10;
         }, handleErr.bind(this));
     };
 
@@ -49,6 +54,11 @@ module.exports = function(app) {
       $http.delete(baseUrl + '/api/sloths/' + sloth._id)
         .then(() => {
           this.sloths.splice(this.sloths.indexOf(sloth), 1);
+          this.topTen = this.sloths.slice()
+            .sort((a, b) => {
+              return b.offspring.length - a.offspring.length;
+            });
+          if (this.topTen.length > 10) this.topTen.length = 10;
         }, handleErr.bind(this));
     };
   }]);
