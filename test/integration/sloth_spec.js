@@ -1,8 +1,8 @@
 describe('sloths', function() {
   it('should create a sloth', function() {
     browser.get('http://localhost:5525');
-    element(by.model('slothsctrl.newSloth.name')).sendKeys('test sloth');
-    element(by.id('createsloth')).click();
+    element.all(by.model('sloth.name')).sendKeys('test sloth');
+    element(by.buttonText('Create Sloth')).click();
     element(by.css('#slothslist li:last-child span')).getText().then(function(text) {
       expect(text).toEqual('test sloth (gender: f) weighs 100 lbs and has a strength of 50');
     });
@@ -12,7 +12,7 @@ describe('sloths', function() {
     browser.get('http://localhost:5525');
     element(by.css('#slothslist li:last-child'))
       .element(by.buttonText('Edit')).click();
-    element(by.model('sloth.name')).clear().sendKeys('Rick');
+    element.all(by.model('sloth.name')).clear().sendKeys('Rick');
     element(by.css('#slothslist li:last-child'))
       .element(by.buttonText('Update Sloth')).click();
     element(by.css('#slothslist li:last-child span')).getText().then(function(text) {
@@ -24,7 +24,7 @@ describe('sloths', function() {
     browser.get('http://localhost:5525');
     element(by.css('#slothslist li:last-child'))
       .element(by.buttonText('Edit')).click();
-    element(by.model('sloth.name')).clear().sendKeys('Other Rick');
+    element.all(by.model('sloth.name')).clear().sendKeys('Other Rick');
     element(by.css('#slothslist li:last-child'))
       .element(by.buttonText('Cancel')).click();
     element(by.css('#slothslist li:last-child span')).getText().then(function(text) {
