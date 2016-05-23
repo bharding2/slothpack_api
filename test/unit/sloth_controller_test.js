@@ -1,4 +1,4 @@
-var angular = require('angular');
+const angular = require('angular');
 require('angular-mocks');
 
 describe('sloths controller', function() {

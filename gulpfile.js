@@ -48,6 +48,14 @@ gulp.task('webpack:test', () => {
       devtool: 'source-map',
       output: {
         filename: 'bundle.js'
+      },
+      module: {
+        loaders: [
+          {
+            test: /\.html$/,
+            loader: 'html'
+          }
+        ]
       }
     }))
     .pipe(gulp.dest('./test'));
@@ -86,15 +94,19 @@ gulp.task('test:protractor', ['startservers:test', 'build:dev'], () => {
       children.forEach((child) => {
         child.kill('SIGTERM');
       });
-      process.env.PORT = 5555;
-      gulp.start('build:dev');
+      setTimeout(() => {
+        process.env.PORT = 5555;
+        gulp.start('build:dev');
+      }, 2000);
     })
     .on('end', () => {
       children.forEach((child) => {
         child.kill('SIGTERM');
       });
-      process.env.PORT = 5555;
-      gulp.start('build:dev');
+      setTimeout(() => {
+        process.env.PORT = 5555;
+        gulp.start('build:dev');
+      }, 2000);
     });
 });
 
@@ -132,6 +144,7 @@ gulp.task('build:dev', ['webpack:dev']);
 gulp.task('test', ['test:mocha', 'test:karma'], () => {
   gulp.start('test:protractor');
 });
+
 gulp.task('lint', ['lint:api', 'lint:test', 'lint:app', 'lint:spec', 'lint:unit']);
 
 gulp.task('default', ['lint', 'test']);

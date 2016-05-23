@@ -1,8 +1,8 @@
 describe('bears', function() {
   it('should create a bear', function() {
     browser.get('http://localhost:5525');
-    element(by.model('bearsctrl.newBear.name')).sendKeys('test bear');
-    element(by.id('createbear')).click();
+    element.all(by.model('bear.name')).sendKeys('test bear');
+    element(by.buttonText('Create Bear')).click();
     element(by.css('#bearslist li:last-child span')).getText().then(function(text) {
       expect(text).toEqual('test bear (gender: m) weighs 500 lbs and has a strength of 10');
     });
@@ -12,7 +12,7 @@ describe('bears', function() {
     browser.get('http://localhost:5525');
     element(by.css('#bearslist li:last-child'))
       .element(by.buttonText('Edit')).click();
-    element(by.model('bear.name')).clear().sendKeys('Rick');
+    element.all(by.model('bear.name')).clear().sendKeys('Rick');
     element(by.css('#bearslist li:last-child'))
       .element(by.buttonText('Update Bear')).click();
     element(by.css('#bearslist li:last-child span')).getText().then(function(text) {
@@ -24,7 +24,7 @@ describe('bears', function() {
     browser.get('http://localhost:5525');
     element(by.css('#bearslist li:last-child'))
       .element(by.buttonText('Edit')).click();
-    element(by.model('bear.name')).clear().sendKeys('Other Rick');
+    element.all(by.model('bear.name')).clear().sendKeys('Other Rick');
     element(by.css('#bearslist li:last-child'))
       .element(by.buttonText('Cancel')).click();
     element(by.css('#bearslist li:last-child span')).getText().then(function(text) {

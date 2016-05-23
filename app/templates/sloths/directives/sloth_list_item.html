@@ -1,0 +1,8 @@
+<li>
+  <ng-transclude></ng-transclude>
+  <span data-ng-if="!sloth.editing">{{ sloth.name }} (gender: {{ sloth.gender }}) weighs {{ sloth.weight }} lbs and has a strength of {{ sloth.strength }}</span>
+
+  <button data-ng-if="!sloth.editing"
+    data-ng-click="backup(sloth); sloth.editing = true">Edit</button>
+  <button data-ng-click="removeSloth(sloth)">Delete Sloth</button>
+</li>

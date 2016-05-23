@@ -1,10 +1,10 @@
 describe('slothbears', function() {
   it('should create a slothbear', function() {
     browser.get('http://localhost:5525');
-    element(by.model('bearsctrl.newBear.name')).sendKeys('Joe');
-    element(by.id('createbear')).click();
-    element(by.model('slothsctrl.newSloth.name')).sendKeys('Sara');
-    element(by.id('createsloth')).click();
+    element.all(by.model('bear.name')).sendKeys('Joe');
+    element(by.buttonText('Create Bear')).click();
+    element.all(by.model('sloth.name')).sendKeys('Sara');
+    element(by.buttonText('Create Sloth')).click();
     var beginLength = 0;
     var endLength = 0;
     element.all(by.css('#slothbearslist li')).count().then(function(count) {
