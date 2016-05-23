@@ -31,6 +31,7 @@
     "gulp-angular-protractor": "^0.1.1",
     "gulp-eslint": "^2.0.0",
     "gulp-mocha": "^2.2.0",
+    "html-loader": "^0.4.3",
     "jasmine-core": "^2.4.1",
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^1.0.1",

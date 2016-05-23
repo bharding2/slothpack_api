@@ -26,7 +26,7 @@ module.exports = function(app) {
             .sort((a, b) => {
               return b.offspring.length - a.offspring.length;
             });
-          if (this.top10.length > 10) this.topTen.length = 10;
+          if (this.topTen.length > 10) this.topTen.length = 10;
         }, handleErr.bind(this));
     };
 
@@ -58,7 +58,7 @@ module.exports = function(app) {
             .sort((a, b) => {
               return b.offspring.length - a.offspring.length;
             });
-          if (this.top10.length > 10) this.topTen.length = 10;
+          if (this.topTen.length > 10) this.topTen.length = 10;
         }, handleErr.bind(this));
     };
   }]);

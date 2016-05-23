@@ -48,6 +48,14 @@ gulp.task('webpack:test', () => {
       devtool: 'source-map',
       output: {
         filename: 'bundle.js'
+      },
+      module: {
+        loaders: [
+          {
+            test: /\.html$/,
+            loader: 'html'
+          }
+        ]
       }
     }))
     .pipe(gulp.dest('./test'));
