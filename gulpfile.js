@@ -1,6 +1,9 @@
 const gulp = require('gulp');
 const webpack = require('webpack-stream');
 const webp = require('webpack');
+const sass = require('gulp-sass');
+const maps = require('gulp-sourcemaps');
+// const minifyCss = require('gulp-minify-css');
 const eslint = require('gulp-eslint');
 const mocha = require('gulp-mocha');
 const childProcess = require('child_process');
@@ -66,7 +69,16 @@ gulp.task('html:dev', () => {
     .pipe(gulp.dest('./build'));
 });
 
-gulp.task('css:dev', () => {
+gulp.task('sass:dev', () => {
+  gulp.src('./app/**/*.scss')
+    .pipe(maps.init())
+    .pipe(sass().on('error', sass.logError))
+    // .pipe(minifyCss())
+    .pipe(maps.write('./'))
+    .pipe(gulp.dest('./build'));
+});
+
+gulp.task('css:dev', ['sass:dev'], () => {
   return gulp.src('app/**/*.css')
     .pipe(gulp.dest('./build'));
 });

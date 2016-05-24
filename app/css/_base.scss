@@ -1,0 +1,18 @@
+section {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+
+  > form {
+    color: $green;
+    flex: 1 100%;
+  }
+
+  h4 {
+    flex: 1 100%;
+  }
+
+  ul, ol, h3 {
+    flex: 1 40%;
+  }
+}
