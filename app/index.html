@@ -9,7 +9,14 @@
     <main>
       <section data-ng-controller="BearsController as bearsctrl"
         data-ng-init="bearsctrl.getAll()">
-        <h3>Create a Bear</h3>
+        <ul id="error">
+          <li data-ng-repeat="error in bearsctrl.errors">{{ error.message }}
+            <button
+              data-ng-click="bearsctrl.errors.splice(bearsctrl.errors.indexOf(error), 1)">x
+            </button>
+          </li>
+        </ul>
+        <h4>Create a Bear</h4>
         <bear-form data-button-text="Create Bear"
           data-savemethod="create"
           data-bear="bearsctrl.newBear">

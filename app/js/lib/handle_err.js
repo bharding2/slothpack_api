@@ -1,4 +1,4 @@
-module.exports = function(err) {
-  console.log(err);
-  this.errs = (this.errs || []).push(err);
+module.exports = function(res) {
+  console.log(res);
+  this.errors.push(new Error('server error'));
 };

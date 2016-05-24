@@ -1,10 +1,10 @@
-var handleErr = require('../../lib').handleErr;
 var baseUrl = require('../../config').baseUrl;
 
 module.exports = function(app) {
-  app.controller('BearsController', ['$http', function($http) {
+  app.controller('BearsController', ['$http', 'cfHandleError', function($http, cfHandleError) {
     this.bears = [];
     this.topTen = [];
+    this.errors = [];
 
     this.backup = (bear) => {
       bear.backup = angular.copy(bear);
@@ -18,7 +18,7 @@ module.exports = function(app) {
       delete bear.backup;
     };
 
-    this.getAll = () => {
+    this.getAll = function() {
       $http.get(baseUrl + '/api/bears')
         .then((response) => {
           this.bears = response.data;
@@ -27,10 +27,11 @@ module.exports = function(app) {
               return b.offspring.length - a.offspring.length;
             });
           if (this.topTen.length > 10) this.topTen.length = 10;
-        }, handleErr.bind(this));
-    };
+        }, cfHandleError(this.errors, 'could not retrieve bears'));
+    }.bind(this);
 
-    this.createBear = () => {
+    this.createBear = function() {
+      var bearName = this.newBear.name;
       $http.post(baseUrl + '/api/bears', this.newBear)
         .then((response) => {
           this.bears.push(response.data);
@@ -40,17 +41,17 @@ module.exports = function(app) {
               return b.offspring.length - a.offspring.length;
             });
           if (this.topTen.length > 10) this.topTen.length = 10;
-        }, handleErr.bind(this));
-    };
+        }, cfHandleError(this.errors, 'could not create bear ' + bearName));
+    }.bind(this);
 
-    this.updateBear = (bear) => {
+    this.updateBear = function(bear) {
       $http.put(baseUrl + '/api/bears/' + bear._id, bear)
         .then(() => {
           bear.editing = false;
-        }, handleErr.bind(this));
-    };
+        }, cfHandleError(this.errors, 'could not update bear ' + bear.name));
+    }.bind(this);
 
-    this.removeBear = (bear) => {
+    this.removeBear = function(bear) {
       $http.delete(baseUrl + '/api/bears/' + bear._id)
         .then(() => {
           this.bears.splice(this.bears.indexOf(bear), 1);
@@ -59,7 +60,7 @@ module.exports = function(app) {
               return b.offspring.length - a.offspring.length;
             });
           if (this.topTen.length > 10) this.topTen.length = 10;
-        }, handleErr.bind(this));
-    };
+        }, cfHandleError(this.errors, 'could not remove bear ' + bear.name));
+    }.bind(this);
   }]);
 };
