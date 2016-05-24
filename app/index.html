@@ -16,13 +16,13 @@
             </button>
           </li>
         </ul>
-        <h4>Create a Bear</h4>
+        <h3>Create a Bear</h3>
         <bear-form data-button-text="Create Bear"
           data-savemethod="create"
           data-bear="bearsctrl.newBear">
         </bear-form>
-        <h3>Current Bears</h3>
-        <h3>Top Ten Bears</h3>
+        <h4>Current Bears</h4>
+        <h4>Top Ten Bears</h4>
         <ul id="bearslist">
           <bear-list-item data-ng-repeat="bear in bearsctrl.bears" data-bear="bear">
             <bear-form data-ng-if="bear.editing"
@@ -47,8 +47,8 @@
           data-savemethod="create"
           data-sloth="slothsctrl.newSloth">
         </sloth-form>
-        <h3>Current Sloths</h3>
-        <h3>Top Ten Sloths</h3>
+        <h4>Current Sloths</h4>
+        <h4>Top Ten Sloths</h4>
         <ul id="slothslist">
           <sloth-list-item data-ng-repeat="sloth in slothsctrl.sloths"
             data-sloth="sloth">
@@ -69,9 +69,9 @@
 
       <section data-ng-controller="SlothbearsController as slothbearsctrl"
         data-ng-init="slothbearsctrl.getAll()">
-        <h4>Make a Slothbear</h4>
+        <h3>Make a Slothbear</h3>
         <button data-ng-click="slothbearsctrl.createSlothbear()">Make a Slothbear</button>
-        <h4>Current Slothbears</h4>
+        <h3>Current Slothbears</h3>
         <ul id="slothbearslist">
           <slothbear-list-item data-ng-repeat="slothbear in slothbearsctrl.slothbears"
             data-slothbear="slothbear">
