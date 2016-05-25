@@ -1,7 +1,8 @@
 var baseUrl = require('../../config').baseUrl;
 
 module.exports = function(app) {
-  app.controller('BearsController', ['$http', 'sbHandleError', function($http, sbHandleError) {
+  app.controller('BearsController', ['$http', 'sbHandleError', 'sbTopTen',
+  function($http, sbHandleError, sbTopTen) {
     this.bears = [];
     this.topTen = [];
     this.errors = [];
@@ -22,11 +23,7 @@ module.exports = function(app) {
       $http.get(baseUrl + '/api/bears')
         .then((response) => {
           this.bears = response.data;
-          this.topTen = this.bears.slice()
-            .sort((a, b) => {
-              return b.offspring.length - a.offspring.length;
-            });
-          if (this.topTen.length > 10) this.topTen.length = 10;
+          this.topTen = sbTopTen(this.bears);
         }, sbHandleError(this.errors, 'could not retrieve bears'));
     }.bind(this);
 
@@ -36,11 +33,7 @@ module.exports = function(app) {
         .then((response) => {
           this.bears.push(response.data);
           this.newBear = null;
-          this.topTen = this.bears.slice()
-            .sort((a, b) => {
-              return b.offspring.length - a.offspring.length;
-            });
-          if (this.topTen.length > 10) this.topTen.length = 10;
+          this.topTen = sbTopTen(this.bears);
         }, sbHandleError(this.errors, 'could not create bear ' + bearName));
     }.bind(this);
 
@@ -55,11 +48,7 @@ module.exports = function(app) {
       $http.delete(baseUrl + '/api/bears/' + bear._id)
         .then(() => {
           this.bears.splice(this.bears.indexOf(bear), 1);
-          this.topTen = this.bears.slice()
-            .sort((a, b) => {
-              return b.offspring.length - a.offspring.length;
-            });
-          if (this.topTen.length > 10) this.topTen.length = 10;
+          this.topTen = sbTopTen(this.bears);
         }, sbHandleError(this.errors, 'could not remove bear ' + bear.name));
     }.bind(this);
   }]);
