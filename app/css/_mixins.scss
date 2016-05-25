@@ -1,0 +1,3 @@
+@mixin top-ten-color ($numChildren: 0) {
+  color: #00FF00 - (12 * (20 - $numChildren));
+}

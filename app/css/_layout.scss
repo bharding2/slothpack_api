@@ -1,0 +1,22 @@
+section {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+
+  > form {
+    color: $green;
+    flex: 1 100%;
+  }
+
+  h3 {
+    flex: 1 100%;
+  }
+
+  #bearslist, #slothslist, h4 {
+    flex: 1 60%;
+  }
+
+  #bearstopten, #slothstopten, h5 {
+    flex: 1 30%;
+  }
+}

@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="./css/normalize.css">
     <link rel="stylesheet" href="./css/styles.css">
     <title>S L O T H B E A R  A P P</title>
   </head>
@@ -22,7 +23,7 @@
           data-bear="bearsctrl.newBear">
         </bear-form>
         <h4>Current Bears</h4>
-        <h4>Top Ten Bears</h4>
+        <h5>Top Ten Bears</h5>
         <ul id="bearslist">
           <bear-list-item data-ng-repeat="bear in bearsctrl.bears" data-bear="bear">
             <bear-form data-ng-if="bear.editing"
@@ -34,7 +35,8 @@
           </bear-list-item>
         </ul>
         <ol id="bearstopten">
-          <li data-ng-repeat="bear in bearsctrl.topTen">
+          <li data-ng-repeat="bear in bearsctrl.topTen"
+            class="class-{{ bear.offspring.length }}">
             {{ bear.name }} : {{ bear.offspring.length }} children
           </li>
         </ol>
@@ -55,7 +57,7 @@
           data-sloth="slothsctrl.newSloth">
         </sloth-form>
         <h4>Current Sloths</h4>
-        <h4>Top Ten Sloths</h4>
+        <h5>Top Ten Sloths</h5>
         <ul id="slothslist">
           <sloth-list-item data-ng-repeat="sloth in slothsctrl.sloths"
             data-sloth="sloth">
@@ -68,7 +70,8 @@
           </sloth-list-item>
         </ul>
         <ol id="slothstopten">
-          <li data-ng-repeat="sloth in slothsctrl.topTen">
+          <li data-ng-repeat="sloth in slothsctrl.topTen"
+            class="class-{{ sloth.offspring.length }}">
             {{ sloth.name }} : {{ sloth.offspring.length }} children
           </li>
         </ol>
