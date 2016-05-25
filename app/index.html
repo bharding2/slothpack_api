@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="./css/normalize.css">
     <link rel="stylesheet" href="./css/styles.css">
     <title>S L O T H B E A R  A P P</title>
   </head>
@@ -21,23 +22,28 @@
           data-savemethod="create"
           data-bear="bearsctrl.newBear">
         </bear-form>
-        <h4>Current Bears</h4>
-        <h4>Top Ten Bears</h4>
-        <ul id="bearslist">
-          <bear-list-item data-ng-repeat="bear in bearsctrl.bears" data-bear="bear">
-            <bear-form data-ng-if="bear.editing"
-              data-button-text="Update Bear"
-              data-savemethod="update"
-              data-bear="bear">
-              <button data-ng-click="bearsctrl.restoreBackup(bear); bear.editing = false">Cancel</button>
-            </bear-form>
-          </bear-list-item>
-        </ul>
-        <ol id="bearstopten">
-          <li data-ng-repeat="bear in bearsctrl.topTen">
-            {{ bear.name }} : {{ bear.offspring.length }} children
-          </li>
-        </ol>
+        <section id="bearslist">
+          <h4>Current Bears</h4>
+          <ul>
+            <bear-list-item data-ng-repeat="bear in bearsctrl.bears" data-bear="bear">
+              <bear-form data-ng-if="bear.editing"
+                data-button-text="Update Bear"
+                data-savemethod="update"
+                data-bear="bear">
+                <button data-ng-click="bearsctrl.restoreBackup(bear); bear.editing = false">Cancel</button>
+              </bear-form>
+            </bear-list-item>
+          </ul>
+        </section>
+        <section id="bearstopten">
+          <h4>Top Ten Bears</h4>
+          <ol>
+            <li data-ng-repeat="bear in bearsctrl.topTen"
+              class="class-{{ bear.offspring.length }}">
+              {{ bear.name }} : {{ bear.offspring.length }} children
+            </li>
+          </ol>
+        </section>
       </section>
 
       <section data-ng-controller="SlothsController as slothsctrl"
@@ -54,24 +60,29 @@
           data-savemethod="create"
           data-sloth="slothsctrl.newSloth">
         </sloth-form>
-        <h4>Current Sloths</h4>
-        <h4>Top Ten Sloths</h4>
-        <ul id="slothslist">
-          <sloth-list-item data-ng-repeat="sloth in slothsctrl.sloths"
-            data-sloth="sloth">
-            <sloth-form data-ng-if="sloth.editing"
-              data-button-text="Update Sloth"
-              data-savemethod="update"
+        <section id="slothslist">
+          <h4>Current Sloths</h4>
+          <ul>
+            <sloth-list-item data-ng-repeat="sloth in slothsctrl.sloths"
               data-sloth="sloth">
-            <button data-ng-click="slothsctrl.restoreBackup(sloth); sloth.editing = false">Cancel</button>
-            </sloth-form>
-          </sloth-list-item>
-        </ul>
-        <ol id="slothstopten">
-          <li data-ng-repeat="sloth in slothsctrl.topTen">
-            {{ sloth.name }} : {{ sloth.offspring.length }} children
-          </li>
-        </ol>
+              <sloth-form data-ng-if="sloth.editing"
+                data-button-text="Update Sloth"
+                data-savemethod="update"
+                data-sloth="sloth">
+              <button data-ng-click="slothsctrl.restoreBackup(sloth); sloth.editing = false">Cancel</button>
+              </sloth-form>
+            </sloth-list-item>
+          </ul>
+        </section>
+        <section id="slothstopten">
+          <h4>Top Ten Sloths</h4>
+          <ol>
+            <li data-ng-repeat="sloth in slothsctrl.topTen"
+              class="class-{{ sloth.offspring.length }}">
+              {{ sloth.name }} : {{ sloth.offspring.length }} children
+            </li>
+          </ol>
+        </section>
       </section>
 
       <section data-ng-controller="SlothbearsController as slothbearsctrl"
@@ -85,18 +96,20 @@
         </ul>
         <h3>Make a Slothbear</h3>
         <button data-ng-click="slothbearsctrl.createSlothbear()">Make a Slothbear</button>
-        <h3>Current Slothbears</h3>
-        <ul id="slothbearslist">
-          <slothbear-list-item data-ng-repeat="slothbear in slothbearsctrl.slothbears"
+        <section id="slothbearslist">
+          <h4>Current Slothbears</h4>
+          <ul>
+            <slothbear-list-item data-ng-repeat="slothbear in slothbearsctrl.slothbears"
             data-slothbear="slothbear">
             <slothbear-form data-ng-if="slothbear.editing"
-              data-button-text="Update Slothbear"
-              data-savemethod="update"
-              data-slothbear="slothbear">
-              <button data-ng-click="slothbearsctrl.restoreBackup(slothbear); slothbear.editing = false">Cancel</button>
-            </slothbear-form>
-          </slothbear-list-item>
-        </ul>
+            data-button-text="Update Slothbear"
+            data-savemethod="update"
+            data-slothbear="slothbear">
+            <button data-ng-click="slothbearsctrl.restoreBackup(slothbear); slothbear.editing = false">Cancel</button>
+          </slothbear-form>
+        </slothbear-list-item>
+      </ul>
+        </section>
       </section>
     </main>
     <script src="./bundle.js"></script>
