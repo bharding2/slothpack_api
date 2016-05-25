@@ -1,7 +1,8 @@
 var baseUrl = require('../../config').baseUrl;
 
 module.exports = function(app) {
-  app.controller('SlothsController', ['$http', 'sbHandleError', function($http, sbHandleError) {
+  app.controller('SlothsController', ['$http', 'sbHandleError', 'sbTopTen',
+  function($http, sbHandleError, sbTopTen) {
     this.sloths = [];
     this.topTen = [];
     this.errors = [];
@@ -22,11 +23,7 @@ module.exports = function(app) {
       $http.get(baseUrl + '/api/sloths')
         .then((response) => {
           this.sloths = response.data;
-          this.topTen = this.sloths.slice()
-            .sort((a, b) => {
-              return b.offspring.length - a.offspring.length;
-            });
-          if (this.topTen.length > 10) this.topTen.length = 10;
+          this.topTen = sbTopTen(this.sloths);
         }, sbHandleError(this.errors, 'could not retrieve sloths'));
     }.bind(this);
 
@@ -36,11 +33,7 @@ module.exports = function(app) {
         .then((response) => {
           this.sloths.push(response.data);
           this.newSloth = null;
-          this.topTen = this.sloths.slice()
-            .sort((a, b) => {
-              return b.offspring.length - a.offspring.length;
-            });
-          if (this.topTen.length > 10) this.topTen.length = 10;
+          this.topTen = sbTopTen(this.sloths);
         }, sbHandleError(this.errors, 'could not create sloth ' + slothName));
     }.bind(this);
 
@@ -55,11 +48,7 @@ module.exports = function(app) {
       $http.delete(baseUrl + '/api/sloths/' + sloth._id)
         .then(() => {
           this.sloths.splice(this.sloths.indexOf(sloth), 1);
-          this.topTen = this.sloths.slice()
-            .sort((a, b) => {
-              return b.offspring.length - a.offspring.length;
-            });
-          if (this.topTen.length > 10) this.topTen.length = 10;
+          this.topTen = sbTopTen(this.sloths);
         }, sbHandleError(this.errors, 'could not remove sloth ' + sloth.name));
     }.bind(this);
   }]);

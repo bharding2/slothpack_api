@@ -1,7 +1,8 @@
 var baseUrl = require('../../config').baseUrl;
 
 module.exports = function(app) {
-  app.controller('SlothbearsController', ['$http', 'sbHandleError', function($http, sbHandleError) {
+  app.controller('SlothbearsController', ['$http', 'sbHandleError',
+  function($http, sbHandleError) {
     this.slothbears = [];
     this.errors = [];
 
