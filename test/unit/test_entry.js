@@ -5,3 +5,5 @@ require('./slothbear_controller_test.js');
 require('./bear_directive_test.js');
 require('./sloth_directive_test.js');
 require('./slothbear_directive_test.js');
+require('./sb_handle_error_test.js');
+require('./sb_top_ten_test.js');
