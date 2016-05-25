@@ -1,4 +1,3 @@
-var handleErr = require('../../lib').handleErr;
 var baseUrl = require('../../config').baseUrl;
 
 module.exports = function(app) {
