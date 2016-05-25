@@ -9,10 +9,14 @@ section {
     flex: 1 100%;
   }
 
-  h3 {
+  h3, h4 {
     flex: 1 100%;
   }
 
+  #slothbearslist {
+    flex: 1 100%;
+  }
+  
   #bearslist, #slothslist{
     flex: 1 60%;
   }

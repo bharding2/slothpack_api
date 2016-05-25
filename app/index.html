@@ -96,18 +96,20 @@
         </ul>
         <h3>Make a Slothbear</h3>
         <button data-ng-click="slothbearsctrl.createSlothbear()">Make a Slothbear</button>
-        <h3>Current Slothbears</h3>
-        <ul id="slothbearslist">
-          <slothbear-list-item data-ng-repeat="slothbear in slothbearsctrl.slothbears"
+        <section id="slothbearslist">
+          <h4>Current Slothbears</h4>
+          <ul>
+            <slothbear-list-item data-ng-repeat="slothbear in slothbearsctrl.slothbears"
             data-slothbear="slothbear">
             <slothbear-form data-ng-if="slothbear.editing"
-              data-button-text="Update Slothbear"
-              data-savemethod="update"
-              data-slothbear="slothbear">
-              <button data-ng-click="slothbearsctrl.restoreBackup(slothbear); slothbear.editing = false">Cancel</button>
-            </slothbear-form>
-          </slothbear-list-item>
-        </ul>
+            data-button-text="Update Slothbear"
+            data-savemethod="update"
+            data-slothbear="slothbear">
+            <button data-ng-click="slothbearsctrl.restoreBackup(slothbear); slothbear.editing = false">Cancel</button>
+          </slothbear-form>
+        </slothbear-list-item>
+      </ul>
+        </section>
       </section>
     </main>
     <script src="./bundle.js"></script>
