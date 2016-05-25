@@ -1,7 +1,7 @@
 var baseUrl = require('../../config').baseUrl;
 
 module.exports = function(app) {
-  app.controller('SlothbearsController', ['$http', 'cfHandleError', function($http, cfHandleError) {
+  app.controller('SlothbearsController', ['$http', 'sbHandleError', function($http, sbHandleError) {
     this.slothbears = [];
     this.errors = [];
 
@@ -21,28 +21,28 @@ module.exports = function(app) {
       $http.get(baseUrl + '/api/slothbears')
         .then((response) => {
           this.slothbears = response.data;
-        }, cfHandleError(this.errors, 'could not retrieve slothbears'));
+        }, sbHandleError(this.errors, 'could not retrieve slothbears'));
     }.bind(this);
 
     this.createSlothbear = function() {
       $http.get(baseUrl + '/api/mate')
         .then((response) => {
           this.slothbears.push(response.data);
-        }, cfHandleError(this.errors, 'could not create slothbear'));
+        }, sbHandleError(this.errors, 'could not create slothbear'));
     }.bind(this);
 
     this.updateSlothbear = function(slothbear) {
       $http.put(baseUrl + '/api/slothbears/' + slothbear._id, slothbear)
         .then(() => {
           slothbear.editing = false;
-        }, cfHandleError(this.errors, 'could not update slothbear ' + slothbear.name));
+        }, sbHandleError(this.errors, 'could not update slothbear ' + slothbear.name));
     }.bind(this);
 
     this.removeSlothbear = function(slothbear) {
       $http.delete(baseUrl + '/api/slothbears/' + slothbear._id)
         .then(() => {
           this.slothbears.splice(this.slothbears.indexOf(slothbear), 1);
-        }, cfHandleError(this.errors, 'could not remove slothbear ' + slothbear.name));
+        }, sbHandleError(this.errors, 'could not remove slothbear ' + slothbear.name));
     }.bind(this);
   }]);
 };

@@ -42,6 +42,13 @@
 
       <section data-ng-controller="SlothsController as slothsctrl"
         data-ng-init="slothsctrl.getAll()">
+        <ul id="sloth-error">
+          <li data-ng-repeat="error in slothsctrl.errors">{{ error.message }}
+            <button
+              data-ng-click="slothsctrl.errors.splice(slothsctrl.errors.indexOf(error), 1)">x
+            </button>
+          </li>
+        </ul>
         <h3>Create a Sloth</h3>
         <sloth-form data-button-text="Create Sloth"
           data-savemethod="create"

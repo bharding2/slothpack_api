@@ -1,7 +1,7 @@
 var baseUrl = require('../../config').baseUrl;
 
 module.exports = function(app) {
-  app.controller('BearsController', ['$http', 'cfHandleError', function($http, cfHandleError) {
+  app.controller('BearsController', ['$http', 'sbHandleError', function($http, sbHandleError) {
     this.bears = [];
     this.topTen = [];
     this.errors = [];
@@ -27,7 +27,7 @@ module.exports = function(app) {
               return b.offspring.length - a.offspring.length;
             });
           if (this.topTen.length > 10) this.topTen.length = 10;
-        }, cfHandleError(this.errors, 'could not retrieve bears'));
+        }, sbHandleError(this.errors, 'could not retrieve bears'));
     }.bind(this);
 
     this.createBear = function() {
@@ -41,14 +41,14 @@ module.exports = function(app) {
               return b.offspring.length - a.offspring.length;
             });
           if (this.topTen.length > 10) this.topTen.length = 10;
-        }, cfHandleError(this.errors, 'could not create bear ' + bearName));
+        }, sbHandleError(this.errors, 'could not create bear ' + bearName));
     }.bind(this);
 
     this.updateBear = function(bear) {
       $http.put(baseUrl + '/api/bears/' + bear._id, bear)
         .then(() => {
           bear.editing = false;
-        }, cfHandleError(this.errors, 'could not update bear ' + bear.name));
+        }, sbHandleError(this.errors, 'could not update bear ' + bear.name));
     }.bind(this);
 
     this.removeBear = function(bear) {
@@ -60,7 +60,7 @@ module.exports = function(app) {
               return b.offspring.length - a.offspring.length;
             });
           if (this.topTen.length > 10) this.topTen.length = 10;
-        }, cfHandleError(this.errors, 'could not remove bear ' + bear.name));
+        }, sbHandleError(this.errors, 'could not remove bear ' + bear.name));
     }.bind(this);
   }]);
 };

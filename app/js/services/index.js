@@ -1,3 +1,3 @@
 module.exports = function(app) {
-  require('./cf_handle_error')(app);
+  require('./sb_handle_error')(app);
 };
