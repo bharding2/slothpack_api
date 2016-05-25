@@ -2,6 +2,7 @@ section {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
+  align-items: flex-start;
 
   > form {
     color: $green;
@@ -12,11 +13,11 @@ section {
     flex: 1 100%;
   }
 
-  #bearslist, #slothslist, h4 {
+  #bearslist, #slothslist{
     flex: 1 60%;
   }
 
-  #bearstopten, #slothstopten, h5 {
+  #bearstopten, #slothstopten{
     flex: 1 30%;
   }
 }
