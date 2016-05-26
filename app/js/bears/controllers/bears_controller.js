@@ -1,11 +1,11 @@
 var baseUrl = require('../../config').baseUrl;
 
 module.exports = function(app) {
-  app.controller('BearsController', ['$http', 'sbHandleError', 'sbTopTen',
-  function($http, sbHandleError, sbTopTen) {
+  app.controller('BearsController', ['sbRest', 'sbTopTen', function(Rest, sbTopTen) {
     this.bears = [];
     this.topTen = [];
     this.errors = [];
+    var remote = new Rest(this.bears, this.errors, baseUrl + '/api/bears');
 
     this.backup = (bear) => {
       bear.backup = angular.copy(bear);
@@ -20,36 +20,33 @@ module.exports = function(app) {
     };
 
     this.getAll = function() {
-      $http.get(baseUrl + '/api/bears')
-        .then((response) => {
-          this.bears = response.data;
+      remote.getAll()
+        .then(() => {
           this.topTen = sbTopTen(this.bears);
-        }, sbHandleError(this.errors, 'could not retrieve bears'));
+        });
     }.bind(this);
 
     this.createBear = function() {
-      var bearName = this.newBear.name;
-      $http.post(baseUrl + '/api/bears', this.newBear)
-        .then((response) => {
-          this.bears.push(response.data);
+      remote.create(this.newBear)
+        .then(() => {
           this.newBear = null;
           this.topTen = sbTopTen(this.bears);
-        }, sbHandleError(this.errors, 'could not create bear ' + bearName));
+        });
     }.bind(this);
 
     this.updateBear = function(bear) {
-      $http.put(baseUrl + '/api/bears/' + bear._id, bear)
+      remote.update(bear)
         .then(() => {
           bear.editing = false;
-        }, sbHandleError(this.errors, 'could not update bear ' + bear.name));
-    }.bind(this);
+        });
+    };
 
     this.removeBear = function(bear) {
-      $http.delete(baseUrl + '/api/bears/' + bear._id)
+      remote.remove(bear)
         .then(() => {
           this.bears.splice(this.bears.indexOf(bear), 1);
           this.topTen = sbTopTen(this.bears);
-        }, sbHandleError(this.errors, 'could not remove bear ' + bear.name));
+        });
     }.bind(this);
   }]);
 };

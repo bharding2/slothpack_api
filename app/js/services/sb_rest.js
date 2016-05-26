@@ -34,5 +34,7 @@ module.exports = function(app) {
           this.data.splice(this.data.indexOf(resource), 1);
         }, sbHandleError(this.errors, 'could not remove resource'));
     };
+
+    return Rest;
   }]);
 };
