@@ -5,7 +5,7 @@ module.exports = function(app) {
     this.bears = [];
     this.topTen = [];
     this.errors = [];
-    var remote = new Rest(this.bears, this.errors, baseUrl + '/api/bears');
+    var restApi = new Rest(this.bears, this.errors, baseUrl + '/api/bears');
 
     this.backup = (bear) => {
       bear.backup = angular.copy(bear);
@@ -20,14 +20,14 @@ module.exports = function(app) {
     };
 
     this.getAll = function() {
-      remote.getAll()
+      restApi.getAll()
         .then(() => {
           this.topTen = sbTopTen(this.bears);
         });
     }.bind(this);
 
     this.createBear = function() {
-      remote.create(this.newBear)
+      restApi.create(this.newBear)
         .then(() => {
           this.newBear = null;
           this.topTen = sbTopTen(this.bears);
@@ -35,14 +35,14 @@ module.exports = function(app) {
     }.bind(this);
 
     this.updateBear = function(bear) {
-      remote.update(bear)
+      restApi.update(bear)
         .then(() => {
           bear.editing = false;
         });
     };
 
     this.removeBear = function(bear) {
-      remote.remove(bear)
+      restApi.remove(bear)
         .then(() => {
           this.bears.splice(this.bears.indexOf(bear), 1);
           this.topTen = sbTopTen(this.bears);

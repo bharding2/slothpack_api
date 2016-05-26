@@ -1,11 +1,11 @@
 var baseUrl = require('../../config').baseUrl;
 
 module.exports = function(app) {
-  app.controller('SlothsController', ['$http', 'sbHandleError', 'sbTopTen',
-  function($http, sbHandleError, sbTopTen) {
+  app.controller('SlothsController', ['sbRest', 'sbTopTen', function(Rest, sbTopTen) {
     this.sloths = [];
     this.topTen = [];
     this.errors = [];
+    var restApi = new Rest(this.sloths, this.errors, baseUrl + '/api/sloths');
 
     this.backup = (sloth) => {
       sloth.backup = angular.copy(sloth);
@@ -20,36 +20,33 @@ module.exports = function(app) {
     };
 
     this.getAll = function() {
-      $http.get(baseUrl + '/api/sloths')
-        .then((response) => {
-          this.sloths = response.data;
+      restApi.getAll()
+        .then(() => {
           this.topTen = sbTopTen(this.sloths);
-        }, sbHandleError(this.errors, 'could not retrieve sloths'));
+        });
     }.bind(this);
 
     this.createSloth = function() {
-      var slothName = this.newSloth.name;
-      $http.post(baseUrl + '/api/sloths', this.newSloth)
-        .then((response) => {
-          this.sloths.push(response.data);
+      restApi.create(this.newSloth)
+        .then(() => {
           this.newSloth = null;
           this.topTen = sbTopTen(this.sloths);
-        }, sbHandleError(this.errors, 'could not create sloth ' + slothName));
+        });
     }.bind(this);
 
     this.updateSloth = function(sloth) {
-      $http.put(baseUrl + '/api/sloths/' + sloth._id, sloth)
+      restApi.update(sloth)
         .then(() => {
           sloth.editing = false;
-        }, sbHandleError(this.errors, 'could not update sloth ' + sloth.name));
-    }.bind(this);
+        });
+    };
 
     this.removeSloth = function(sloth) {
-      $http.delete(baseUrl + '/api/sloths/' + sloth._id)
+      restApi.remove(sloth)
         .then(() => {
           this.sloths.splice(this.sloths.indexOf(sloth), 1);
           this.topTen = sbTopTen(this.sloths);
-        }, sbHandleError(this.errors, 'could not remove sloth ' + sloth.name));
+        });
     }.bind(this);
   }]);
 };
