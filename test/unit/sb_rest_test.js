@@ -39,7 +39,19 @@ describe('sb rest services', function() {
     expect(bears[0].name).toBe('testy');
   }));
 
-  it('should update a resource');
+  it('should update a resource', angular.mock.inject(function(sbRest) {
+    $httpBackend.expectPUT('http://localhost:5555/api/bears/1',
+      { name: 'change bear', editing: true, _id: 1 })
+      .respond(200);
+    var bears = [{ name: 'test bear', editing: true, _id: 1 }];
+    var errors = [];
+    var testUrl = 'http://localhost:5555/api/bears';
+    var testRest = new sbRest(bears, errors, testUrl);
+    bears[0].name = 'change bear';
+    testRest.update(bears[0]);
+    $httpBackend.flush();
+    expect(errors.length).toBe(0);
+  }));
 
   it('should remove a resource', angular.mock.inject(function(sbRest) {
     $httpBackend.expectDELETE('http://localhost:5555/api/bears/1').respond(200);
