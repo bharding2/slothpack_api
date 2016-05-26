@@ -50,6 +50,7 @@ describe('sb rest services', function() {
     bears[0].name = 'change bear';
     testRest.update(bears[0]);
     $httpBackend.flush();
+    expect(typeof testRest.update(bears[0]).then).toBe('function');
     expect(errors.length).toBe(0);
   }));
 
