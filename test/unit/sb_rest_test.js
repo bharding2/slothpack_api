@@ -19,14 +19,25 @@ describe('sb rest services', function() {
     var bears = [];
     var errors = [];
     var testUrl = 'http://localhost:5555/api/bears';
-    var testRes = new sbRest(bears, errors, testUrl);
-    testRes.getAll();
+    var testRest = new sbRest(bears, errors, testUrl);
+    testRest.getAll();
     $httpBackend.flush();
     expect(bears.length).toBe(1);
     expect(bears[0].name).toBe('testy');
   }));
 
-  it('should create a resource');
+  it('should create a resource', angular.mock.inject(function(sbRest) {
+    $httpBackend.expectPOST('http://localhost:5555/api/bears', { name: 'yogi' })
+      .respond(200, { name: 'testy' });
+    var bears = [];
+    var errors = [];
+    var testUrl = 'http://localhost:5555/api/bears';
+    var testRest = new sbRest(bears, errors, testUrl);
+    var newBear = { name: 'yogi' };
+    testRest.create(newBear);
+    $httpBackend.flush();
+    expect(bears[0].name).toBe('testy');
+  }));
 
   it('should update a resource');
 
@@ -36,8 +47,8 @@ describe('sb rest services', function() {
     var errors = [];
     var testUrl = 'http://localhost:5555/api/bears';
 
-    var testRes = new sbRest(bears, errors, testUrl);
-    testRes.remove(bears[0]);
+    var testRest = new sbRest(bears, errors, testUrl);
+    testRest.remove(bears[0]);
     $httpBackend.flush();
     expect(bears.length).toBe(0);
   }));
