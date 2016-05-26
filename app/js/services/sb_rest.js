@@ -1,8 +1,8 @@
 module.exports = function(app) {
   app.factory('sbRest', ['$http', 'sbHandleError', function($http, sbHandleError, sbTopTen) {
-    var Rest = function(restArr, errorsArr, baseUrl) {
+    var Rest = function(restArr, errorArr, baseUrl) {
       this.data = restArr;
-      this.errors = errorsArr;
+      this.errors = errorArr;
       this.url = baseUrl;
     };
 

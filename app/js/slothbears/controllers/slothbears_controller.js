@@ -1,10 +1,12 @@
 var baseUrl = require('../../config').baseUrl;
 
 module.exports = function(app) {
-  app.controller('SlothbearsController', ['sbRest', 'sbTopTen', function(Rest, sbTopTen) {
+  app.controller('SlothbearsController', ['sbRest', 'sbMate', 'sbTopTen',
+  function(Rest, Mate, sbTopTen) {
     this.slothbears = [];
     this.errors = [];
     var restApi = new Rest(this.slothbears, this.errors, baseUrl + '/api/slothbears');
+    var mateApi = new Mate(this.slothbears, this.errors, baseUrl + '/api/mate');
 
     this.backup = (slothbear) => {
       slothbear.backup = angular.copy(slothbear);
@@ -20,12 +22,7 @@ module.exports = function(app) {
 
     this.getAll = restApi.getAll.bind(restApi);
 
-    // this.createSlothbear = function() {
-    //   $http.get(baseUrl + '/api/mate')
-    //     .then((response) => {
-    //       this.slothbears.push(response.data);
-    //     }, sbHandleError(this.errors, 'could not create slothbear'));
-    // }.bind(this);
+    this.createSlothbear = mateApi.create.bind(mateApi);
 
     this.updateSlothbear = function(slothbear) {
       restApi.update(slothbear)
