@@ -3,6 +3,7 @@ var baseUrl = require('../../config').baseUrl;
 module.exports = function(app) {
   app.controller('SlothbearsController', ['sbRest', 'sbMate', 'sbTopTen',
   function(Rest, Mate, sbTopTen) {
+    this.topTen = sbTopTen;
     this.slothbears = [];
     this.errors = [];
     var restApi = new Rest(this.slothbears, this.errors, baseUrl + '/api/slothbears');
@@ -22,7 +23,20 @@ module.exports = function(app) {
 
     this.getAll = restApi.getAll.bind(restApi);
 
-    this.createSlothbear = mateApi.create.bind(mateApi);
+    this.createSlothbear = function() {
+      mateApi.create()
+        .then(() => {
+          var currSB = this.slothbears[this.slothbears.length - 1];
+          this.topTen.bears.forEach((ele, idx) => {
+            if (ele.name === currSB.parents[1]) this.topTen.bears[idx].offspring.push(currSB.name);
+          });
+          this.topTen.sloths.forEach((ele, idx) => {
+            if (ele.name === currSB.parents[0]) this.topTen.sloths[idx].offspring.push(currSB.name);
+          });
+          sbTopTen.getTopTenBears();
+          sbTopTen.getTopTenSloths();
+        });
+    }.bind(this);
 
     this.updateSlothbear = function(slothbear) {
       restApi.update(slothbear)
@@ -31,11 +45,6 @@ module.exports = function(app) {
         });
     };
 
-    this.removeSlothbear = function(slothbear) {
-      restApi.remove(slothbear)
-        .then(() => {
-          this.slothbears.splice(this.slothbears.indexOf(slothbear), 1);
-        });
-    }.bind(this);
+    this.removeSlothbear = restApi.remove.bind(restApi);
   }]);
 };
