@@ -6,8 +6,8 @@ module.exports = function(app) {
     this.topTen = sbTopTen;
     this.slothbears = [];
     this.errors = [];
-    var restApi = new Rest(this.slothbears, this.errors, baseUrl + '/api/slothbears');
-    var mateApi = new Mate(this.slothbears, this.errors, baseUrl + '/api/mate');
+    this.restApi = new Rest(this.slothbears, this.errors, baseUrl + '/api/slothbears');
+    this.mateApi = new Mate(this.slothbears, this.errors, baseUrl + '/api/mate');
 
     this.backup = (slothbear) => {
       slothbear.backup = angular.copy(slothbear);
@@ -21,10 +21,10 @@ module.exports = function(app) {
       delete slothbear.backup;
     };
 
-    this.getAll = restApi.getAll.bind(restApi);
+    this.getAll = this.restApi.getAll.bind(this.restApi);
 
     this.createSlothbear = function() {
-      mateApi.create()
+      this.mateApi.create()
         .then(() => {
           var currSB = this.slothbears[this.slothbears.length - 1];
           this.topTen.bears.forEach((ele, idx) => {
@@ -39,12 +39,17 @@ module.exports = function(app) {
     }.bind(this);
 
     this.updateSlothbear = function(slothbear) {
-      restApi.update(slothbear)
+      this.restApi.update(slothbear)
         .then(() => {
           slothbear.editing = false;
         });
-    };
+    }.bind(this);
 
-    this.removeSlothbear = restApi.remove.bind(restApi);
+    this.removeSlothbear = function(slothbear) {
+      this.restApi.remove(slothbear)
+      .then(() => {
+        this.slothbears = this.restApi.data;
+      });
+    }.bind(this);
   }]);
 };

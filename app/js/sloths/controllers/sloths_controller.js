@@ -6,7 +6,7 @@ module.exports = function(app) {
     this.sloths = [];
     sbTopTen.sloths = this.sloths;
     this.errors = [];
-    var restApi = new Rest(this.sloths, this.errors, baseUrl + '/api/sloths');
+    this.restApi = new Rest(this.sloths, this.errors, baseUrl + '/api/sloths');
 
     this.backup = (sloth) => {
       sloth.backup = angular.copy(sloth);
@@ -21,14 +21,14 @@ module.exports = function(app) {
     };
 
     this.getAll = function() {
-      restApi.getAll()
+      this.restApi.getAll()
         .then(() => {
           sbTopTen.getTopTenSloths();
         });
-    };
+    }.bind(this);
 
     this.createSloth = function() {
-      restApi.create(this.newSloth)
+      this.restApi.create(this.newSloth)
         .then(() => {
           this.newSloth = null;
           sbTopTen.getTopTenSloths();
@@ -36,17 +36,18 @@ module.exports = function(app) {
     }.bind(this);
 
     this.updateSloth = function(sloth) {
-      restApi.update(sloth)
+      this.restApi.update(sloth)
         .then(() => {
           sloth.editing = false;
         });
-    };
+    }.bind(this);
 
     this.removeSloth = function(sloth) {
-      restApi.remove(sloth)
+      this.restApi.remove(sloth)
         .then(() => {
+          this.sloths = this.restApi.data;
           sbTopTen.getTopTenSloths();
         });
-    };
+    }.bind(this);
   }]);
 };

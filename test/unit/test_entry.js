@@ -8,4 +8,4 @@ require('./slothbear_directive_test.js');
 require('./sb_handle_error_test.js');
 require('./sb_rest_test.js');
 require('./sb_mate_test.js');
-require('./sb_top_ten_test.js');
+// require('./sb_top_ten_test.js');
