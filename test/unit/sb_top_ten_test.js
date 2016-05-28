@@ -44,7 +44,7 @@ describe('sbTopTen service', function() {
       { offspring: ['test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test'] },
       { offspring: ['test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test'] }
     ];
-    
+
     sbTopTen.sloths = testArr;
     sbTopTen.getTopTenSloths();
     expect(Array.isArray(sbTopTen.topTenSloths)).toBe(true);
