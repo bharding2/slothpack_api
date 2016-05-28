@@ -3,10 +3,11 @@ var baseUrl = require('../../config').baseUrl;
 module.exports = function(app) {
   app.controller('SlothbearsController', ['sbRest', 'sbMate', 'sbTopTen',
   function(Rest, Mate, sbTopTen) {
+    this.topTen = sbTopTen;
     this.slothbears = [];
     this.errors = [];
-    var restApi = new Rest(this.slothbears, this.errors, baseUrl + '/api/slothbears');
-    var mateApi = new Mate(this.slothbears, this.errors, baseUrl + '/api/mate');
+    this.restApi = new Rest(this.slothbears, this.errors, baseUrl + '/api/slothbears');
+    this.mateApi = new Mate(this.slothbears, this.errors, baseUrl + '/api/mate');
 
     this.backup = (slothbear) => {
       slothbear.backup = angular.copy(slothbear);
@@ -20,22 +21,35 @@ module.exports = function(app) {
       delete slothbear.backup;
     };
 
-    this.getAll = restApi.getAll.bind(restApi);
+    this.getAll = this.restApi.getAll.bind(this.restApi);
 
-    this.createSlothbear = mateApi.create.bind(mateApi);
+    this.createSlothbear = function() {
+      this.mateApi.create()
+        .then(() => {
+          var currSB = this.slothbears[this.slothbears.length - 1];
+          this.topTen.bears.forEach((ele, idx) => {
+            if (ele.name === currSB.parents[1]) this.topTen.bears[idx].offspring.push(currSB.name);
+          });
+          this.topTen.sloths.forEach((ele, idx) => {
+            if (ele.name === currSB.parents[0]) this.topTen.sloths[idx].offspring.push(currSB.name);
+          });
+          sbTopTen.getTopTenBears();
+          sbTopTen.getTopTenSloths();
+        });
+    }.bind(this);
 
     this.updateSlothbear = function(slothbear) {
-      restApi.update(slothbear)
+      this.restApi.update(slothbear)
         .then(() => {
           slothbear.editing = false;
         });
-    };
+    }.bind(this);
 
     this.removeSlothbear = function(slothbear) {
-      restApi.remove(slothbear)
-        .then(() => {
-          this.slothbears.splice(this.slothbears.indexOf(slothbear), 1);
-        });
+      this.restApi.remove(slothbear)
+      .then(() => {
+        this.slothbears = this.restApi.data;
+      });
     }.bind(this);
   }]);
 };

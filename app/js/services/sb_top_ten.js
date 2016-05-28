@@ -1,12 +1,24 @@
 module.exports = function(app) {
   app.factory('sbTopTen', function() {
-    return function(animalArr) {
-      var topTenArr = animalArr.slice()
-        .sort((a, b) => {
-          return b.offspring.length - a.offspring.length;
-        });
-      if (topTenArr.length > 10) topTenArr.length = 10;
-      return topTenArr;
+    return {
+      bears: [],
+      sloths: [],
+      topTenBears: [],
+      topTenSloths: [],
+      getTopTenBears: function() {
+        this.topTenBears = this.bears.slice()
+          .sort((a, b) => {
+            return b.offspring.length - a.offspring.length;
+          });
+        if (this.topTenBears.length > 10) this.topTenBears.length = 10;
+      },
+      getTopTenSloths: function() {
+        this.topTenSloths = this.sloths.slice()
+          .sort((a, b) => {
+            return b.offspring.length - a.offspring.length;
+          });
+        if (this.topTenSloths.length > 10) this.topTenSloths.length = 10;
+      }
     };
   });
 };

@@ -2,10 +2,11 @@ var baseUrl = require('../../config').baseUrl;
 
 module.exports = function(app) {
   app.controller('BearsController', ['sbRest', 'sbTopTen', function(Rest, sbTopTen) {
+    this.topTen = sbTopTen;
     this.bears = [];
-    this.topTen = [];
+    this.topTen.bears = this.bears;
     this.errors = [];
-    var restApi = new Rest(this.bears, this.errors, baseUrl + '/api/bears');
+    this.restApi = new Rest(this.bears, this.errors, baseUrl + '/api/bears');
 
     this.backup = (bear) => {
       bear.backup = angular.copy(bear);
@@ -20,32 +21,32 @@ module.exports = function(app) {
     };
 
     this.getAll = function() {
-      restApi.getAll()
+      this.restApi.getAll()
         .then(() => {
-          this.topTen = sbTopTen(this.bears);
+          sbTopTen.getTopTenBears();
         });
     }.bind(this);
 
     this.createBear = function() {
-      restApi.create(this.newBear)
+      this.restApi.create(this.newBear)
         .then(() => {
           this.newBear = null;
-          this.topTen = sbTopTen(this.bears);
+          sbTopTen.getTopTenBears();
         });
     }.bind(this);
 
     this.updateBear = function(bear) {
-      restApi.update(bear)
+      this.restApi.update(bear)
         .then(() => {
           bear.editing = false;
         });
-    };
+    }.bind(this);
 
     this.removeBear = function(bear) {
-      restApi.remove(bear)
+      this.restApi.remove(bear)
         .then(() => {
-          this.bears.splice(this.bears.indexOf(bear), 1);
-          this.topTen = sbTopTen(this.bears);
+          this.bears = this.restApi.data;
+          sbTopTen.getTopTenBears();
         });
     }.bind(this);
   }]);

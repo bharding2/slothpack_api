@@ -7,7 +7,7 @@ module.exports = function(app) {
     };
 
     Mate.prototype.create = function() {
-      $http.get(this.url)
+      return $http.get(this.url)
         .then((res) => {
           this.data.push(res.data);
         }, sbHandleError(this.errors, 'could not create slothbear'));

@@ -5,25 +5,50 @@ describe('sbTopTen service', function() {
   beforeEach(angular.mock.module('slothbearApp'));
 
   it('should be a function', angular.mock.inject(function(sbTopTen) {
-    expect(typeof sbTopTen).toBe('function');
+    expect(typeof sbTopTen).toBe('object');
   }));
 
-  it('should return an array of the top ten', angular.mock.inject(function(sbTopTen) {
+  it('should persist top ten bears', angular.mock.inject(function(sbTopTen) {
     var testArr = [
-      { offspring: 1 },
-      { offspring: 2 },
-      { offspring: 3 },
-      { offspring: 4 },
-      { offspring: 5 },
-      { offspring: 6 },
-      { offspring: 7 },
-      { offspring: 8 },
-      { offspring: 9 },
-      { offspring: 10 },
-      { offspring: 11 }
+      { offspring: ['test'] },
+      { offspring: ['test', 'test'] },
+      { offspring: ['test', 'test', 'test'] },
+      { offspring: ['test', 'test', 'test', 'test'] },
+      { offspring: ['test', 'test', 'test', 'test', 'test'] },
+      { offspring: ['test', 'test', 'test', 'test', 'test', 'test'] },
+      { offspring: ['test', 'test', 'test', 'test', 'test', 'test', 'test'] },
+      { offspring: ['test', 'test', 'test', 'test', 'test', 'test', 'test', 'test'] },
+      { offspring: ['test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test'] },
+      { offspring: ['test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test'] },
+      { offspring: ['test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test'] }
     ];
-    var topTenArr = sbTopTen(testArr);
-    expect(Array.isArray(topTenArr)).toBe(true);
-    expect(topTenArr.length).toBe(10);
+
+    sbTopTen.bears = testArr;
+    sbTopTen.getTopTenBears();
+    expect(Array.isArray(sbTopTen.topTenBears)).toBe(true);
+    expect(sbTopTen.topTenBears.length).toBe(10);
+    expect(sbTopTen.topTenBears[0].offspring.length).toBe(11);
+  }));
+
+  it('should persist top ten sloths', angular.mock.inject(function(sbTopTen) {
+    var testArr = [
+      { offspring: ['test'] },
+      { offspring: ['test', 'test'] },
+      { offspring: ['test', 'test', 'test'] },
+      { offspring: ['test', 'test', 'test', 'test'] },
+      { offspring: ['test', 'test', 'test', 'test', 'test'] },
+      { offspring: ['test', 'test', 'test', 'test', 'test', 'test'] },
+      { offspring: ['test', 'test', 'test', 'test', 'test', 'test', 'test'] },
+      { offspring: ['test', 'test', 'test', 'test', 'test', 'test', 'test', 'test'] },
+      { offspring: ['test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test'] },
+      { offspring: ['test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test'] },
+      { offspring: ['test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test'] }
+    ];
+
+    sbTopTen.sloths = testArr;
+    sbTopTen.getTopTenSloths();
+    expect(Array.isArray(sbTopTen.topTenSloths)).toBe(true);
+    expect(sbTopTen.topTenSloths.length).toBe(10);
+    expect(sbTopTen.topTenSloths[0].offspring.length).toBe(11);
   }));
 });

@@ -38,7 +38,7 @@
         <section id="bearstopten">
           <h4>Top Ten Bears</h4>
           <ol>
-            <li data-ng-repeat="bear in bearsctrl.topTen"
+            <li data-ng-repeat="bear in bearsctrl.topTen.topTenBears"
               class="class-{{ bear.offspring.length }}">
               {{ bear.name }} : {{ bear.offspring.length }} children
             </li>
@@ -77,7 +77,7 @@
         <section id="slothstopten">
           <h4>Top Ten Sloths</h4>
           <ol>
-            <li data-ng-repeat="sloth in slothsctrl.topTen"
+            <li data-ng-repeat="sloth in slothsctrl.topTen.topTenSloths"
               class="class-{{ sloth.offspring.length }}">
               {{ sloth.name }} : {{ sloth.offspring.length }} children
             </li>
