@@ -14,15 +14,24 @@ section {
     flex: 1 100%;
   }
 
+  .box {
+    padding: 1%;
+    margin: 1%;
+    border: 4px double $black;
+  }
+
   #slothbearslist {
+    @extend .box;
     flex: 1 100%;
   }
 
   #bearslist, #slothslist {
+    @extend .box;
     flex: 1 60%;
   }
 
   #bearstopten, #slothstopten {
+    @extend .box;
     flex: 1 30%;
   }
 }
