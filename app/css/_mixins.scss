@@ -1,3 +1,11 @@
+@function getColor($numChildren) {
+  @if $numChildren > 20 and $numChildren < 25 { @return darken($green, 10%); }
+  @else if $numChildren >= 25 and $numChildren < 30 { @return darken($green, 20%); }
+  @if $numChildren >= 30 and $numChildren < 35 { @return darken($green, 30%); }
+  @else if $numChildren >= 35 and $numChildren <= 40 { @return darken($green, 40%); }
+  @else { @return $green - (12 * (20 - $numChildren)); }
+}
+
 @mixin top-ten-color ($numChildren: 0) {
-  color: $green - (12 * (20 - $numChildren));
+  color: getColor($numChildren);
 }

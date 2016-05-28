@@ -1,4 +1,4 @@
-@for $numChildren from 0 through 20 {
+@for $numChildren from 0 through 40 {
   .class-#{$numChildren} {
     @include top-ten-color($numChildren);
   }
