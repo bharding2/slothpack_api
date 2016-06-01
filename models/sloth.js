@@ -5,7 +5,8 @@ var slothSchema = new mongoose.Schema({
   gender: { type: String, default: 'f' },
   weight: { type: Number, default: 100 },
   strength: { type: Number, default: 50 },
-  offspring: [String]
+  offspring: [String],
+  wranglerId: String
 });
 
 module.exports = mongoose.model('Sloth', slothSchema);
