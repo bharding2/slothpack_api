@@ -1,5 +1,6 @@
 const Router = require('express').Router;
 const async = require('async');
+const jwtAuth = require(__dirname + '/../lib/jwt_auth');
 
 const Sloth = require(__dirname + '/../models/sloth');
 const Bear = require(__dirname + '/../models/bear');
@@ -8,7 +9,7 @@ const handleErr = require(__dirname + '/../lib/handle_err');
 
 var mateRouter = module.exports = Router();
 
-mateRouter.get('/mate', (req, res) => {
+mateRouter.get('/mate', jwtAuth, (req, res) => {
   var allSloths = [];
   var allBears = [];
   var randomSloth = {};
