@@ -1,0 +1,12 @@
+<form name="authform" data-ng-submit="authctrl.authenticate(authctrl.user)">
+  <label for="username">Username:</label>
+  <input type="text" required data-ng-model="authctrl.user.username">
+
+  <label for="password">Password:</label>
+  <input type="password" required data-ng-model="authctrl.user.password">
+
+  <label data-ng-if="authctrl.signup" required for="confirmation">Confirmation:</label>
+  <inpuk data-ng-if="authctrl.signup" type="password" data-model="authctrl.user.confirmation">
+
+  <button type="submit" data-ng-disabled="authform.$invalid">{{ authctrl.buttonText }}</button>
+</form>

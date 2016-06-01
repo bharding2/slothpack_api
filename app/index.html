@@ -7,8 +7,8 @@
     <title>S L O T H B E A R  A P P</title>
   </head>
   <body data-ng-app="slothbearApp">
-    <main>
-      <section data-ng-controller="BearsController as bearsctrl"
+    <main data-ng-view>
+      <!-- <section data-ng-controller="BearsController as bearsctrl"
         data-ng-init="bearsctrl.getAll()">
         <ul id="bear-error">
           <li data-ng-repeat="error in bearsctrl.errors">{{ error.message }}
@@ -44,7 +44,7 @@
             </li>
           </ol>
         </section>
-      </section>
+      </section> -->
 
       <section data-ng-controller="SlothsController as slothsctrl"
         data-ng-init="slothsctrl.getAll()">
