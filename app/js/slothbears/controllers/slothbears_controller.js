@@ -51,5 +51,7 @@ module.exports = function(app) {
         this.slothbears = this.restApi.data;
       });
     }.bind(this);
+
+    this.getAll();
   }]);
 };

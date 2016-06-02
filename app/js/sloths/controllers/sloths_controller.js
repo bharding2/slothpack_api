@@ -49,5 +49,7 @@ module.exports = function(app) {
           sbTopTen.getTopTenSloths();
         });
     }.bind(this);
+
+    this.getAll();
   }]);
 };

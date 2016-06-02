@@ -48,7 +48,7 @@
           </section>
         </section> -->
 
-        <section data-ng-controller="SlothsController as slothsctrl"
+        <!-- <section data-ng-controller="SlothsController as slothsctrl"
           data-ng-init="slothsctrl.getAll()">
           <ul id="sloth-error">
             <li data-ng-repeat="error in slothsctrl.errors">{{ error.message }}
@@ -85,7 +85,7 @@
               </li>
             </ol>
           </section>
-        </section>
+        </section> -->
 
         <section data-ng-controller="SlothbearsController as slothbearsctrl"
           data-ng-init="slothbearsctrl.getAll()">
@@ -103,14 +103,14 @@
             <ul>
               <slothbear-list-item data-ng-repeat="slothbear in slothbearsctrl.slothbears"
               data-slothbear="slothbear">
-              <slothbear-form data-ng-if="slothbear.editing"
-              data-button-text="Update Slothbear"
-              data-savemethod="update"
-              data-slothbear="slothbear">
-              <button data-ng-click="slothbearsctrl.restoreBackup(slothbear); slothbear.editing = false">Cancel</button>
-            </slothbear-form>
-          </slothbear-list-item>
-        </ul>
+                <slothbear-form data-ng-if="slothbear.editing"
+                data-button-text="Update Slothbear"
+                data-savemethod="update"
+                data-slothbear="slothbear">
+                  <button data-ng-click="slothbearsctrl.restoreBackup(slothbear); slothbear.editing = false">Cancel</button>
+                </slothbear-form>
+              </slothbear-list-item>
+            </ul>
           </section>
         </section>
       </main>
