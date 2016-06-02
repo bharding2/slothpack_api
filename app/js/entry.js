@@ -15,13 +15,23 @@ slothbearApp.config(['$routeProvider', function($rp) {
       controller: 'BearsController',
       controllerAs: 'bearsctrl'
     })
+    .when('/sloths', {
+      templateUrl: 'templates/sloths/views/sloths_view.html',
+      controller: 'SlothsController',
+      controllerAs: 'slothsctrl'
+    })
+    .when('/slothbears', {
+      templateUrl: 'templates/slothbears/views/slothbears_view.html',
+      controller: 'SlothbearsController',
+      controllerAs: 'slothbearsctrl'
+    })
     .when('/signup', {
       templateUrl: 'templates/auth/views/auth_view.html',
       controller: 'SignUpController',
       controllerAs: 'authctrl'
     })
     .when('/signin', {
-      templateUrl: 'template/auth/views/auth_view.html',
+      templateUrl: 'templates/auth/views/auth_view.html',
       controller: 'SignInController',
       controllerAs: 'authctrl'
     })
