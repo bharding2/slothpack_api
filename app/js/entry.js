@@ -36,6 +36,6 @@ slothbearApp.config(['$routeProvider', function($rp) {
       controllerAs: 'authctrl'
     })
     .otherwise({
-      redirect: '/bears'
+      redirect: '/signup'
     });
 }]);

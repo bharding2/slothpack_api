@@ -51,6 +51,7 @@ mateRouter.get('/mate', jwtAuth, (req, res) => {
       gender: newSlothbearGender,
       weight: newSlothbearWeight,
       strength: newSlothbearStrength,
+      wranglerId: req.user._id,
       parents: [randomSloth.name, randomBear.name]
     });
 

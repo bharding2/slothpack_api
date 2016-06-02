@@ -7,6 +7,15 @@
     <title>S L O T H B E A R  A P P</title>
   </head>
   <body data-ng-app="slothbearApp">
+    <nav>
+      <ul>
+        <li><a href="/#/signup">Sign Up</a></li>
+        <li><a href="/#/signin">Sign In</a></li>
+        <li><a href="/#/bears">Bears</a></li>
+        <li><a href="/#/sloths">Sloths</a></li>
+        <li><a href="/#/slothbears">Slothbears</a></li>
+      </ul>
+    </nav>
     <div data-ng-controller="AuthController as globalAuth" data-ng-init="globalAuth.getUsername()">
       <p data-ng-if="globalAuth.username">Hello: {{ globalAuth.username }} <a href data-ng-click="globalAuth.logout()">Logout</a></p>
       <main data-ng-view>
