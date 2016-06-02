@@ -31,6 +31,9 @@ describe('sloths controller', function() {
 
     it('should send a GET to retrieve sloths', function() {
       $httpBackend.expectGET('http://localhost:5555/api/sloths')
+        .respond(200, [{ name: 'other' }]);
+      $httpBackend.flush();
+      $httpBackend.expectGET('http://localhost:5555/api/sloths')
         .respond(200, [{ name: 'test sloth' }]);
       slothsctrl.getAll();
       $httpBackend.flush();
@@ -39,17 +42,23 @@ describe('sloths controller', function() {
     });
 
     it('should create a sloth', function() {
-      $httpBackend.expectPOST('http://localhost:5555/api/sloths', { name: 'slomo' })
-        .respond(200, { name: 'some sloth' });
-      expect(slothsctrl.sloths.length).toBe(0);
-      slothsctrl.newSloth = { name: 'slomo' };
+      $httpBackend.expectGET('http://localhost:5555/api/sloths')
+        .respond(200, [{ name: 'other', offspring: [] }]);
+      $httpBackend.flush();
+      $httpBackend.expectPOST('http://localhost:5555/api/sloths', { name: 'slomo', offspring: [] })
+        .respond(200, { name: 'some sloth', offspring: [] });
+      expect(slothsctrl.sloths.length).toBe(1);
+      slothsctrl.newSloth = { name: 'slomo', offspring: [] };
       slothsctrl.createSloth();
       $httpBackend.flush();
-      expect(slothsctrl.sloths[0].name).toBe('some sloth');
+      expect(slothsctrl.sloths[1].name).toBe('some sloth');
       expect(slothsctrl.newSloth).toBe(null);
     });
 
     it('should update a sloth', function() {
+      $httpBackend.expectGET('http://localhost:5555/api/sloths')
+        .respond(200, [{ name: 'other' }]);
+      $httpBackend.flush();
       $httpBackend.expectPUT('http://localhost:5555/api/sloths/1',
         { name: 'change sloth', editing: true, _id: 1 })
         .respond(200);
@@ -61,6 +70,9 @@ describe('sloths controller', function() {
     });
 
     it('should murder a sloth', function() {
+      $httpBackend.expectGET('http://localhost:5555/api/sloths')
+        .respond(200, [{ name: 'other' }]);
+      $httpBackend.flush();
       $httpBackend.expectDELETE('http://localhost:5555/api/sloths/1').respond(200);
       slothsctrl.sloths = [{ name: 'slomo', _id: 1 }];
       slothsctrl.removeSloth(slothsctrl.sloths[0]);

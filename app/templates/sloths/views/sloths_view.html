@@ -1,0 +1,38 @@
+<section data-ng-controller="SlothsController as slothsctrl"
+  data-ng-init="globalAuth.getUsername()">
+  <ul id="sloth-error">
+    <li data-ng-repeat="error in slothsctrl.errors">{{ error.message }}
+      <button
+        data-ng-click="slothsctrl.errors.splice(slothsctrl.errors.indexOf(error), 1)">x
+      </button>
+    </li>
+  </ul>
+  <h3>Create a Sloth</h3>
+  <sloth-form data-button-text="Create Sloth"
+    data-savemethod="create"
+    data-sloth="slothsctrl.newSloth">
+  </sloth-form>
+  <section id="slothslist">
+    <h4>Current Sloths</h4>
+    <ul>
+      <sloth-list-item data-ng-repeat="sloth in slothsctrl.sloths"
+        data-sloth="sloth">
+        <sloth-form data-ng-if="sloth.editing"
+          data-button-text="Update Sloth"
+          data-savemethod="update"
+          data-sloth="sloth">
+        <button data-ng-click="slothsctrl.restoreBackup(sloth); sloth.editing = false">Cancel</button>
+        </sloth-form>
+      </sloth-list-item>
+    </ul>
+  </section>
+  <section id="slothstopten">
+    <h4>Top Ten Sloths</h4>
+    <ol>
+      <li data-ng-repeat="sloth in slothsctrl.topTen.topTenSloths"
+        class="class-{{ sloth.offspring.length }}">
+        {{ sloth.name }} : {{ sloth.offspring.length }} children
+      </li>
+    </ol>
+  </section>
+</section>

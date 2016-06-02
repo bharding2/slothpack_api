@@ -1,0 +1,36 @@
+<section data-ng-init="globalAuth.getUsername()">
+  <ul id="bear-error">
+    <li data-ng-repeat="error in bearsctrl.errors">{{ error.message }}
+      <button
+        data-ng-click="bearsctrl.errors.splice(bearsctrl.errors.indexOf(error), 1)">x
+      </button>
+    </li>
+  </ul>
+  <h3>Create a Bear</h3>
+  <bear-form data-button-text="Create Bear"
+    data-savemethod="create"
+    data-bear="bearsctrl.newBear">
+  </bear-form>
+  <section id="bearslist">
+    <h4>Current Bears</h4>
+    <ul>
+      <bear-list-item data-ng-repeat="bear in bearsctrl.bears" data-bear="bear">
+        <bear-form data-ng-if="bear.editing"
+          data-button-text="Update Bear"
+          data-savemethod="update"
+          data-bear="bear">
+          <button data-ng-click="bearsctrl.restoreBackup(bear); bear.editing = false">Cancel</button>
+        </bear-form>
+      </bear-list-item>
+    </ul>
+  </section>
+  <section id="bearstopten">
+    <h4>Top Ten Bears</h4>
+    <ol>
+      <li data-ng-repeat="bear in bearsctrl.topTen.topTenBears"
+        class="class-{{ bear.offspring.length }}">
+        {{ bear.name }} : {{ bear.offspring.length }} children
+      </li>
+    </ol>
+  </section>
+</section>

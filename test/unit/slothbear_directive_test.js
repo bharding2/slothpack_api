@@ -29,6 +29,14 @@ describe('slothbear directives', function() {
     };
 
     var list = $compile('<section data-ng-controller="SlothbearsController as slothbearsctrl"><slothbear-list-item data-slothbear="slothbear"></slothbear-list-item></section>');  // eslint-disable-line max-len
+    $httpBackend.expectGET('http://localhost:5555/api/slothbears')
+      .respond(200, [{
+        name: 'Rick',
+        gender: 'm',
+        weight: 100,
+        strength: 10,
+        offspring: ['little rick']
+      }]);
     var directive = list($scope);
     $httpBackend.flush();
 
@@ -42,6 +50,8 @@ describe('slothbear directives', function() {
       .respond(200, slothbearForm);
 
     var form = $compile('<section data-ng-controller="SlothbearsController as slothbearsctrl"><slothbear-form data-button-text="Update Slothbear"></slothbear-form></section>');  // eslint-disable-line max-len
+    $httpBackend.expectGET('http://localhost:5555/api/slothbears')
+      .respond(200, [{ name: 'other' }]);
     var directive = form($scope);
     $httpBackend.flush();
 

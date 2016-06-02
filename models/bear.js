@@ -5,7 +5,8 @@ var bearSchema = new mongoose.Schema({
   gender: { type: String, default: 'm' },
   weight: { type: Number, default: 500 },
   strength: { type: Number, default: 10 },
-  offspring: [String]
+  offspring: [String],
+  wranglerId: String
 });
 
 module.exports = mongoose.model('Bear', bearSchema);

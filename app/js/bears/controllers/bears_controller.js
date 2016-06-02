@@ -49,5 +49,7 @@ module.exports = function(app) {
           sbTopTen.getTopTenBears();
         });
     }.bind(this);
+
+    this.getAll();
   }]);
 };

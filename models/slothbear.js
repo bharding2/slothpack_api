@@ -5,7 +5,8 @@ var slothbearSchema = new mongoose.Schema({
   gender: String,
   weight: Number,
   strength: Number,
-  parents: [String]
+  parents: [String],
+  wranglerId: String
 });
 
 module.exports = mongoose.model('Slothbear', slothbearSchema);
