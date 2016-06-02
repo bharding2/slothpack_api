@@ -31,6 +31,9 @@ describe('bears controller', function() {
 
     it('should send a GET to retrieve bears', function() {
       $httpBackend.expectGET('http://localhost:5555/api/bears')
+        .respond(200, [{ name: 'other' }]);
+      $httpBackend.flush();
+      $httpBackend.expectGET('http://localhost:5555/api/bears')
         .respond(200, [{ name: 'test bear' }]);
       bearsctrl.getAll();
       $httpBackend.flush();
@@ -39,17 +42,23 @@ describe('bears controller', function() {
     });
 
     it('should create a bear', function() {
-      $httpBackend.expectPOST('http://localhost:5555/api/bears', { name: 'yogi' })
-        .respond(200, { name: 'some bear' });
-      expect(bearsctrl.bears.length).toBe(0);
-      bearsctrl.newBear = { name: 'yogi' };
+      $httpBackend.expectGET('http://localhost:5555/api/bears')
+        .respond(200, [{ name: 'other', offspring: [] }]);
+      $httpBackend.flush();
+      $httpBackend.expectPOST('http://localhost:5555/api/bears', { name: 'yogi', offspring: [] })
+        .respond(200, { name: 'some bear', offspring: [] });
+      expect(bearsctrl.bears.length).toBe(1);
+      bearsctrl.newBear = { name: 'yogi', offspring: [] };
       bearsctrl.createBear();
       $httpBackend.flush();
-      expect(bearsctrl.bears[0].name).toBe('some bear');
+      expect(bearsctrl.bears[1].name).toBe('some bear');
       expect(bearsctrl.newBear).toBe(null);
     });
 
     it('should update a bear', function() {
+      $httpBackend.expectGET('http://localhost:5555/api/bears')
+        .respond(200, [{ name: 'other' }]);
+      $httpBackend.flush();
       $httpBackend.expectPUT('http://localhost:5555/api/bears/1',
         { name: 'change bear', editing: true, _id: 1 })
         .respond(200);
@@ -61,6 +70,9 @@ describe('bears controller', function() {
     });
 
     it('should murder a bear', function() {
+      $httpBackend.expectGET('http://localhost:5555/api/bears')
+        .respond(200, [{ name: 'other' }]);
+      $httpBackend.flush();
       $httpBackend.expectDELETE('http://localhost:5555/api/bears/1').respond(200);
       bearsctrl.bears = [{ name: 'yogi', _id: 1 }];
       bearsctrl.removeBear(bearsctrl.bears[0]);

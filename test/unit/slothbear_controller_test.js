@@ -31,6 +31,9 @@ describe('slothbear controller', function() {
 
     it('should send a GET to retrieve slothbears', function() {
       $httpBackend.expectGET('http://localhost:5555/api/slothbears')
+        .respond(200, [{ name: 'other' }]);
+      $httpBackend.flush();
+      $httpBackend.expectGET('http://localhost:5555/api/slothbears')
         .respond(200, [{ name: 'test slothbear' }]);
       slothbearsctrl.getAll();
       $httpBackend.flush();
@@ -39,15 +42,21 @@ describe('slothbear controller', function() {
     });
 
     it('should create a slothbear', function() {
+      $httpBackend.expectGET('http://localhost:5555/api/slothbears')
+        .respond(200, [{ name: 'other' }]);
+      $httpBackend.flush();
       $httpBackend.expectGET('http://localhost:5555/api/mate')
         .respond(200);
-      expect(slothbearsctrl.slothbears.length).toBe(0);
+      expect(slothbearsctrl.slothbears.length).toBe(1);
       slothbearsctrl.createSlothbear();
       $httpBackend.flush();
-      expect(slothbearsctrl.slothbears.length).toBe(1);
+      expect(slothbearsctrl.slothbears.length).toBe(2);
     });
 
     it('should update a slothbear', function() {
+      $httpBackend.expectGET('http://localhost:5555/api/slothbears')
+        .respond(200, [{ name: 'other' }]);
+      $httpBackend.flush();
       $httpBackend.expectPUT('http://localhost:5555/api/slothbears/1',
         { name: 'change slothbear', editing: true, _id: 1 })
         .respond(200);
@@ -59,6 +68,9 @@ describe('slothbear controller', function() {
     });
 
     it('should murder a slothbear', function() {
+      $httpBackend.expectGET('http://localhost:5555/api/slothbears')
+        .respond(200, [{ name: 'other' }]);
+      $httpBackend.flush();
       $httpBackend.expectDELETE('http://localhost:5555/api/slothbears/1').respond(200);
       slothbearsctrl.slothbears = [{ name: 'slomo', _id: 1 }];
       slothbearsctrl.removeSlothbear(slothbearsctrl.slothbears[0]);

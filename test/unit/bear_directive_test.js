@@ -28,6 +28,14 @@ describe('bear directives', function() {
     };
 
     var list = $compile('<section data-ng-controller="BearsController as bearsctrl"><bear-list-item data-bear="bear"></bear-list-item></section>');  // eslint-disable-line max-len
+    $httpBackend.expectGET('http://localhost:5555/api/bears')
+      .respond(200, [{
+        name: 'Rick',
+        gender: 'm',
+        weight: 100,
+        strength: 10,
+        offspring: ['little rick']
+      }]);
     var directive = list($scope);
     $httpBackend.flush();
 
@@ -41,6 +49,8 @@ describe('bear directives', function() {
       .respond(200, bearForm);
 
     var form = $compile('<section data-ng-controller="BearsController as bearsctrl"><bear-form data-button-text="Create Bear"></bear-form></section>');  // eslint-disable-line max-len
+    $httpBackend.expectGET('http://localhost:5555/api/bears')
+      .respond(200, [{ name: 'other' }]);
     var directive = form($scope);
     $httpBackend.flush();
 
