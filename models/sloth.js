@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 var slothSchema = new mongoose.Schema({
-  name: { type: String, unique: true },
+  name: { type: String },
   gender: { type: String, default: 'f' },
   weight: { type: Number, default: 100 },
   strength: { type: Number, default: 50 },
