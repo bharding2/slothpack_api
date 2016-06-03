@@ -8,7 +8,7 @@ module.exports = function(app) {
       removeToken: function() {
         this.token = null;
         this.username = null;
-        $http.defatults.headers.common.token = null;
+        $http.defaults.headers.common.token = null;
         window.localStorage.token = '';
       },
       saveToken: function(token) {
